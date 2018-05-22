@@ -1,30 +1,49 @@
 ﻿========================================================================
     控制台应用程序：LinkedList 项目概述
 ========================================================================
+#define SUCCESS 1
+#define INDEX_ERROR -2
+#define BUFFER_EMPTY -3
 
-应用程序向导已为您创建了此 LinkedList 应用程序。
+template<class T_ELE>
+class LinkList
+{
+	
+	
+public:
+	//无参构造函数
+	LinkList();
+	//析构函数
+	~LinkList();
+public:
+	BOOL IsEmpty();                                                //判断链表是否为空，空返回1，否则返回0
+	void Clear();                                                  //清空链表
+	DWORD GetElement(IN DWORD dwIndex, OUT T_ELE& Element);        //根据索引获取元素
+	DWORD GetElementIndex(IN T_ELE Element);                       //根据元素获取链表中的索引
+	DWORD Insert(IN T_ELE Element);                                //新增链表
+	DWORD Insert(IN DWORD dwIndex, IN T_ELE Element);              //根据索引新增元素
+	DWORD Delete(IN DWORD dwIndex);                                //根据索引删除元素
+	DWORD GetSize();                                               //获取链表中元素的数量 
 
-本文件概要介绍组成 LinkedList 应用程序的每个文件的内容。
 
 
-LinkedList.vcxproj
-    这是使用应用程序向导生成的 VC++ 项目的主项目文件，其中包含生成该文件的 Visual C++ 的版本信息，以及有关使用应用程序向导选择的平台、配置和项目功能的信息。
+private:
+	 typedef struct _NODE
+	{
+		T_ELE Data;
+		_NODE* pNext;
+	}NODE, *PNODE;
+	
+	PNODE GetIndexCurrentNode(DWORD dwIndex);                     //获取索引为dwIndex的指针
+	PNODE GetIndexPreviousNode(DWORD dwIndex);                    //获取索引为dwIndex的前一个节点的指针
+	PNODE GetIndexNextNode(DWORD dwIndex);                        //获取索引为dwIndex的下一个节点的指针
 
-LinkedList.vcxproj.filters
-    这是使用“应用程序向导”生成的 VC++ 项目筛选器文件。它包含有关项目文件与筛选器之间的关联信息。在 IDE 中，通过这种关联，在特定节点下以分组形式显示具有相似扩展名的文件。例如，“.cpp”文件与“源文件”筛选器关联。
+	
 
-LinkedList.cpp
-    这是主应用程序源文件。
+private:
+	PNODE m_pList;                                               //链表头指针
+	DWORD m_dwLength;                                            //链表中元素的数量
 
-/////////////////////////////////////////////////////////////////////////////
-其他标准文件:
+};
 
-StdAfx.h, StdAfx.cpp
-    这些文件用于生成名为 LinkedList.pch 的预编译头 (PCH) 文件和名为 StdAfx.obj 的预编译类型文件。
 
-/////////////////////////////////////////////////////////////////////////////
-其他注释:
-
-应用程序向导使用“TODO:”注释来指示应添加或自定义的源代码部分。
-
-/////////////////////////////////////////////////////////////////////////////
